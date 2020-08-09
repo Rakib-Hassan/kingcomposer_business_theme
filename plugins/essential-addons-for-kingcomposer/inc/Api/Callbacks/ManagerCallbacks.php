@@ -1,0 +1,37 @@
+<?php
+/**
+ * @package  PrimeExtVc
+ */
+
+namespace Eak\Api\Callbacks;
+
+use Eak\Base\BaseController;
+
+class ManagerCallbacks extends BaseController {
+	public function checkboxSanitize( $input ) {
+		$output = array();
+		foreach ( $this->shortcodes as $key => $value ) {
+			$output[ $key ] = isset( $input[ $key ] ) ? true : false;
+		}
+
+		return $output;
+	}
+
+	public function adminSectionManager() {
+		echo "";
+		//echo 'Manage the Addons of this Plugin by activating the checkboxes from the following list.';
+	}
+
+	public function checkboxField( $args ) {
+		$name        = $args['label_for'];
+		$classes     = $args['class'];
+		$option_name = $args['option_name'];
+		$checkbox    = get_option( $option_name );
+
+		$checked     = isset( $checkbox[ $name ] ) ? ( $checkbox[ $name ] ? true : false ) : false;
+
+		echo '<div class="tg-list-item"><input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class="checkbox tgl tgl-ios" ' . ( $checked ? 'checked' : '' ) . '>
+		
+		<label class="tgl-btn" for="' . $name . '"><div></div></label></div>';
+	}
+}
